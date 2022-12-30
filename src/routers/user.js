@@ -36,7 +36,7 @@ router.post('/users', async (req, res) => {
       //  res.cookie("jwt",token , {
       //    httpOnly : true
       //  })
-       res.redirect('http//:localhost:3000')
+       res.status(200).redirect('http//:localhost:3000')
        res.status(201).send({user , token})
     } catch (e) {
        res.status(400).send(e)
