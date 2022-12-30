@@ -32,6 +32,11 @@ router.post('/users', async (req, res) => {
  
     try {
        const token = await user.generateauthToken()
+      //  console.log(token)
+      //  res.cookie("jwt",token , {
+      //    httpOnly : true
+      //  })
+       res.redirect('http//:localhost:3000')
        res.status(201).send({user , token})
     } catch (e) {
        res.status(400).send(e)
@@ -42,7 +47,6 @@ router.post('/users', async (req, res) => {
    try{
       const user = await User.findByCredentials(req.body.email , req.body.password)
       const token = await user.generateauthToken()
-
       res.send({user, token})
    } catch(e){
       res.status(400).send(e)
@@ -56,7 +60,7 @@ router.post('/users', async (req, res) => {
         })
         
         await req.user.save()
-
+      //   res.clearCookie("jwt")
         res.send('Logged out succesfully!')
    } catch(e){
       res.status(500).send('Unable to log out !')
@@ -66,9 +70,9 @@ router.post('/users', async (req, res) => {
  router.post('/users/logoutAll' , auth , async(req , res)=>{
    try{
        req.user.tokens = []
-
+        
        await req.user.save()
-
+      //  res.clearCookie("jwt")
        res.send('Logged out succesfully!')
    } catch(e){
       res.status(500).send()
